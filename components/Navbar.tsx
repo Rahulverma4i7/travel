@@ -1,9 +1,12 @@
+"use client";
 import { NAV_LINKS } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 // import Button from "./Button";
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <nav className="flexBetween max-container padding-container relative z-30 py-5">
       <Link href="/">
@@ -16,7 +19,11 @@ const Navbar = () => {
         />
       </Link>
 
-      <ul className="hidden h-full gap-12 lg:flex">
+      <ul
+        className={`h-full gap-12 lg:flex ${
+          menuOpen ? "flex mt-8 absolute top-16 left-4  p-8 rounded" : "hidden"
+        }`}
+      >
         {NAV_LINKS.map((link) => (
           <Link
             href={link.href}
@@ -28,21 +35,14 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* <div className="lg:flexCenter hidden">
-        <Button
-          type="button"
-          title="Login"
-          icon="/user.svg"
-          variant="btn_dark_green"
-        />
-      </div> */}
-
+      {/* Menu Icon */}
       <Image
-        src="menu.svg"
+        src="/menu.svg"
         alt="menu"
         width={32}
         height={32}
         className="inline-block cursor-pointer lg:hidden"
+        onClick={() => setMenuOpen(!menuOpen)}
       />
     </nav>
   );
